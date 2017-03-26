@@ -121,7 +121,7 @@ public class ProblemCapture extends Fragment {
 
         File storageDirectory= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        File image= File.createTempFile(fileName,".jpg",storageDirectory);
+        File image= new File(storageDirectory,fileName+".jpg");
 
         mImageFileLocation =image.getAbsolutePath();
 
