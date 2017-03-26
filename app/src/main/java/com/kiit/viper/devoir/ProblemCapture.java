@@ -1,5 +1,6 @@
 package com.kiit.viper.devoir;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,6 +50,7 @@ public class ProblemCapture extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         return rootView;
+
     }
 
     @Override
@@ -122,18 +127,22 @@ public class ProblemCapture extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode==ACTIVITY_START_CAM_APP && resultCode==RESULT_OK)
-        {
+
+         String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if (EasyPermissions.hasPermissions(getContext(), galleryPermissions)) {
             try {
                 Bitmap photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
                 problem.setImageBitmap(photoCaptureBitmap);
             }
-            catch (Exception e){
+            catch (Exception e) {
                 e.getMessage();
             }
-
-
+        } else {
+            EasyPermissions.requestPermissions(this, "Access for storage",
+                    101, galleryPermissions);
         }
+
     }
 
     File createImageFile() throws IOException {
