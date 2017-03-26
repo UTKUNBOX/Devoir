@@ -55,6 +55,25 @@ public class ProblemCapture extends Fragment {
         // get the button view
         button = (ImageView) getView().findViewById(R.id.button);
         problem = (ImageView) getView().findViewById(R.id.Problem);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callCamAppIntent=new Intent();
+                callCamAppIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                File photoFile = null;
+                try
+                {
+                    photoFile = createImageFile();
+                }
+                catch(IOException e)
+                {
+                    e.printStackTrace();
+                }
+                callCamAppIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                startActivityForResult(callCamAppIntent,ACTIVITY_START_CAM_APP);
+
+            }
+        });
 
         txt = (TextView)getView().findViewById(R.id.text);
 
@@ -105,9 +124,13 @@ public class ProblemCapture extends Fragment {
 
         if(requestCode==ACTIVITY_START_CAM_APP && resultCode==RESULT_OK)
         {
-
-            Bitmap photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
-            problem.setImageBitmap(photoCaptureBitmap);
+            try {
+                Bitmap photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
+                problem.setImageBitmap(photoCaptureBitmap);
+            }
+            catch (Exception e){
+                e.getMessage();
+            }
 
 
         }
