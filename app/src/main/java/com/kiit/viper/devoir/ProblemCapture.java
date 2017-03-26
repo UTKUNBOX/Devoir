@@ -40,13 +40,14 @@ public class ProblemCapture extends Fragment {
     ImageView button,problem;
     public static final int ACTIVITY_START_CAM_APP=0;
     TextView txt;
-    //static final  int CAM_REQUEST=1;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //problem = (ImageView) getView().findViewById(R.id.Problem);
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         return rootView;
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -57,15 +58,6 @@ public class ProblemCapture extends Fragment {
 
         txt = (TextView)getView().findViewById(R.id.text);
 
-        // set a onclick listener for when the button gets clicked
-     /*   button.setOnClickListener(new View.OnClickListener() {
-            // Start new list activity
-            public void onClick(View v) {
-                Intent mainIntent = new Intent(getActivity(),
-                        Capture.class);
-                startActivity(mainIntent);
-            }
-        });*/
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
            /* public void onClick(View view) {
@@ -108,28 +100,15 @@ public class ProblemCapture extends Fragment {
 
     }
 
-   /* private File getFile(){
-        File folder = new File("sdcard/capture");
-        if (!folder.exists()){
-            folder.mkdir();
-        }
-        File imageFile = new File(folder,"img.jpg");
-        return imageFile;
-    }*/
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // String path="sdcard/capture/img.jpg";
-        //problem.setImageDrawable(Drawable.createFromPath(mImageFileLocation));
+
         if(requestCode==ACTIVITY_START_CAM_APP && resultCode==RESULT_OK)
         {
-            //Intent callPicHolderIntent = new Intent(this,PicHolder.class);
-            // startActivity(callPicHolderIntent);
+
             Bitmap photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
             problem.setImageBitmap(photoCaptureBitmap);
-           /* Bundle extra= data.getExtras();
-            Bitmap photoCaptureBitmap= (Bitmap) extra.get("data");
-            imageView.setImageBitmap(photoCaptureBitmap);*/
+
 
         }
     }
