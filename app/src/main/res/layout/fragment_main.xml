@@ -3,8 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingBottom="2dp"
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
@@ -14,11 +14,11 @@
     >
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <android.support.v7.widget.CardView
                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -55,6 +55,7 @@
                         android:layout_margin="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
                         android:layout_gravity="center"
                         android:text="Millions of neighborhoods and colonies suffer from inappropriate sanitation and hygiene, despite the various municipality initiatives. This has got a negative effect on the people living in the area as well as the people who have to cross the particular portion of the city as daily commute. Mostly the urban areas are affected badly where population is at its peak. Despite various proposals and reforms,the problem still persists. This happens due to information and communication gap in between authorities and common masses. 'Devoir' is an initiation for reducing this communication gap"
                          />
@@ -66,10 +67,10 @@
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/next2"/>
+                    android:src="@drawable/svg"/>
                     <TextView
-                        android:id="@+id/text"
                         android:clickable="true"
+                        android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/Banner"

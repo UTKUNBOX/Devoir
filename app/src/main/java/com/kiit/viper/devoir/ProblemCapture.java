@@ -48,7 +48,7 @@ public class ProblemCapture extends Fragment {
     static String mImageFileLocation="";
     ImageView button,problem;
     public static final int ACTIVITY_START_CAM_APP=0;
-    TextView txt;
+   // TextView txt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -85,49 +85,6 @@ public class ProblemCapture extends Fragment {
             }
         });
 
-        txt = (TextView)getView().findViewById(R.id.text);
-
-        txt.setOnClickListener(new View.OnClickListener() {
-            @Override
-           /* public void onClick(View view) {
-
-                Intent mainIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                File file = null;
-                try {
-                    file = createImageFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                mainIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(getActivity(),
-                        BuildConfig.APPLICATION_ID + ".provider", file));
-
-                startActivityForResult(mainIntent,CAM_REQUEST);
-            }
-*/
-            public void onClick(View v)
-            {
-                String[] galleryPermissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                EasyPermissions.requestPermissions(this, "Access for storage",
-                        101, galleryPermissions);
-                Intent callCamAppIntent=new Intent();
-                callCamAppIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                File photoFile = null;
-                try
-                {
-                    photoFile = createImageFile();
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-                callCamAppIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                startActivityForResult(callCamAppIntent,ACTIVITY_START_CAM_APP);
-
-            }
-        });
-
 
 
     }
@@ -138,13 +95,14 @@ public class ProblemCapture extends Fragment {
         //AlertDialog alert = logoutBuilder.create();
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.problemcapturedialog);
-        dialog.setTitle("Title...");
+        dialog.setTitle("Problem Submission");
 
         // set the custom dialog components - text, image and button
         //ImageView image = (ImageView) alert.findViewById(R.id.Problem1);
         ImageView image = (ImageView) dialog.findViewById(R.id.Problem1);
 
         dialog.show();
+
         //alert.setTitle("Problem Capture");
         //alert.show();
 
