@@ -95,7 +95,7 @@ public class ProblemCapture extends Fragment {
         //AlertDialog alert = logoutBuilder.create();
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.problemcapturedialog);
-        dialog.setTitle("Problem Submission");
+        dialog.setTitle("    Problem Submission");
 
         // set the custom dialog components - text, image and button
         //ImageView image = (ImageView) alert.findViewById(R.id.Problem1);
