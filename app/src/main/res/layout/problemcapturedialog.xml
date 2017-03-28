@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="fill_parent"
     android:id="@+id/ProbImg"
     android:backgroundTint="@color/cardview_light_background"
     android:layout_height="match_parent">
@@ -15,8 +15,8 @@
                android:layout_margin="15dp"
                android:layout_gravity="center_horizontal"
                android:id="@+id/Problem1"
-               android:layout_width="match_parent"
-               android:layout_height="300dp" />
+               android:layout_width="300dp"
+               android:layout_height="450dp" />
             <TextView
                 android:textSize="17dp"
                 android:layout_width="wrap_content"
@@ -30,12 +30,20 @@
                 android:layout_width="fill_parent"
                 android:entries="@array/feedbacktypelist">
             </Spinner>
+            <EditText android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="6dp"
+                android:id="@+id/other"
+                android:hint="Issue">
+
+            </EditText>
             <EditText
                 android:id="@+id/EditTextFeedbackBody"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:hint="Description(Optional)"
                 android:inputType="textMultiLine"
+                android:imeOptions="actionNext"
                 android:lines="5"
                 android:layout_width="fill_parent">
             </EditText>
@@ -47,8 +55,9 @@
                 android:layout_width="fill_parent">
             </CheckBox>
             <ImageView
-                android:src="@drawable/send"
-                android:layout_margin="5dp"
+                android:id="@+id/send"
+                android:src="@drawable/send1"
+                android:layout_margin="7dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"/>
