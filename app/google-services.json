@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "692336016373",
+    "firebase_url": "https://devoir-9149a.firebaseio.com",
+    "project_id": "devoir-9149a",
+    "storage_bucket": "devoir-9149a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692336016373:android:7d0c1c82c01521ff",
+        "android_client_info": {
+          "package_name": "com.kiit.viper.devoir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692336016373-pvd2dhl95rfrcue5ksi7qiknsko16h97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kiit.viper.devoir",
+            "certificate_hash": "33536f269de792b9db18341803bdbe95d7ac70b1"
+          }
+        },
+        {
+          "client_id": "692336016373-itrmd00d5rr2hm5r45c7n5qpbaeat22t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kiit.viper.devoir",
+            "certificate_hash": "809e52e643b1adce8f627b491c0297bef89a50ad"
+          }
+        },
+        {
+          "client_id": "692336016373-tckf9h35tp7vi8h5vbgpajr4j0g80tg8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsbL9wj3DT4UnvHx1fE8gHJdlYQcWZ0xs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692336016373-tckf9h35tp7vi8h5vbgpajr4j0g80tg8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
