@@ -30,6 +30,13 @@
                 android:layout_width="fill_parent"
                 android:entries="@array/feedbacktypelist">
             </Spinner>
+            <EditText android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="6dp"
+                android:id="@+id/other"
+                android:hint="Issue">
+
+            </EditText>
             <EditText
                 android:id="@+id/EditTextFeedbackBody"
                 android:layout_height="wrap_content"

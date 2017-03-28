@@ -26,10 +26,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,7 +62,10 @@ public class ProblemCapture extends Fragment {
 
     static String mImageFileLocation="";
     ImageView button,problem;
+    EditText ed;
+    Bitmap photoCaptureBitmap;
     File photoFile = null;
+    private Spinner spinner;
     private ProgressDialog progressDialog;
     private CheckBox checkBox;
     private StorageReference mStorageRef;
@@ -118,6 +124,29 @@ public class ProblemCapture extends Fragment {
         dialog.setTitle("    Problem Submission");
         // set the custom dialog components - text, image and button
         //ImageView image = (ImageView) alert.findViewById(R.id.Problem1);
+        ed=(EditText)dialog.findViewById(R.id.other);
+        spinner = (Spinner)dialog.findViewById(R.id.SpinnerFeedbackType);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 5:{
+                        Toast.makeText(getContext(), "Enter Your Issue", Toast.LENGTH_SHORT).show();
+                        ed.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                    default:{
+
+                        ed.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         final ImageView image = (ImageView) dialog.findViewById(R.id.Problem1);
         checkBox = (CheckBox)dialog.findViewById(R.id.CheckBoxResponse);
         final ImageView send = (ImageView) dialog.findViewById(R.id.send);
@@ -171,7 +200,7 @@ public class ProblemCapture extends Fragment {
 
         if (EasyPermissions.hasPermissions(getContext(), galleryPermissions)) {
             try {
-                Bitmap photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
+                 photoCaptureBitmap = BitmapFactory.decodeFile(mImageFileLocation);
 
                  image.setImageBitmap(photoCaptureBitmap);
 
