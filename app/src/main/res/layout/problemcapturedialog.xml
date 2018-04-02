@@ -19,13 +19,25 @@
                android:layout_height="450dp" />
             <TextView
                 android:textSize="17dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GPS Location:"
+                android:layout_margin="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location"
+                android:text="20.3494328 , 85.8150239"
+                android:layout_margin="12dp"/>
+            <TextView
+                android:textSize="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Issue"
                 android:layout_margin="12dp"/>
             <Spinner
                 android:layout_margin="6dp"
-                android:id="@+id/SpinnerFeedbackType"
+                android:id="@+id/issueTypeSpinner"
                 android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
                 android:entries="@array/feedbacktypelist">
@@ -38,7 +50,7 @@
 
             </EditText>
             <EditText
-                android:id="@+id/EditTextFeedbackBody"
+                android:id="@+id/descriptionEditText"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:hint="Description(Optional)"

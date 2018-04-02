@@ -1,5 +1,6 @@
 package com.kiit.viper.devoir;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -25,28 +26,45 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.kiit.viper.devoir.model.User;
 
 /**
- * Created by mrsp7 on 28-03-2017.
+ * Created by Sukesh Panwar on 28-03-2017.
  */
 
 public class Login extends AppCompatActivity{
 
     private SignInButton googleButton;
+    private ProgressDialog mProgress;
 
     private static final int RC_SIGN_IN=1;
 
     private GoogleApiClient mGoogleApiClient;
 
     private FirebaseAuth mAuth;
-
+    private FirebaseUser fUser;
+    private static DatabaseReference mDatabase;
+    FirebaseDatabase database;
     private FirebaseAuth.AuthStateListener mAuthListner;
 
     private static final String TAG="LOGIN_ACT";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -55,7 +73,7 @@ public class Login extends AppCompatActivity{
         mAuthListner=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
+                fUser = firebaseAuth.getCurrentUser();
                 if(firebaseAuth.getCurrentUser()!=null)
                 {
                     startActivity(new Intent(Login.this, MainActivity.class));
@@ -65,6 +83,8 @@ public class Login extends AppCompatActivity{
         };
 
         googleButton= (SignInButton) findViewById(R.id.googleButton);
+        mProgress=new ProgressDialog(this);
+        mProgress.setMessage("Signing In...");
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -95,6 +115,81 @@ public class Login extends AppCompatActivity{
                 }
             }
         });
+
+       /* mAuthListner = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null)
+                {
+                    // User is signed in
+//                            shortRoidPreferences.setPrefString("email",user.getEmail());
+//                            shortRoidPreferences.setPrefString("name",user.getDisplayName());
+                    User u=new User();
+
+                            for(UserInfo profile:user.getProviderData()) {
+                                //for navigation Header Details
+                                nvEmail = user.getEmail();
+                                nvUserName = profile.getDisplayName();
+                                nvProfilePhotoUri = profile.getPhotoUrl();
+                            }
+                    u.setEmail(user.getEmail());
+                    u.setName(user.getDisplayName());
+                    //u.setFcm(shortRoidPreferences.getPrefString("token"));
+                    // shortRoidPreferences.setPrefBoolean("temp_forward",false);
+                    database = FirebaseDatabase.getInstance();
+                    mDatabase=database.getReference("users");
+                    mDatabase.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            User cur_usr = dataSnapshot.getValue(User.class);
+                            if(cur_usr.getEmail().equals(user.getEmail())){
+                                mDatabase.child(dataSnapshot.getKey()).child("fcm").setValue(FirebaseInstanceId.getInstance().getToken());
+                            }
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    if(!shortRoidPreferences.getPrefBoolean("logged_in"))
+                        FireBaseUtil.addUserToDataBase(SignInActivity.this,u);
+
+                    else
+                    {
+                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                        SignInActivity.this.finish();
+                    }
+
+                }
+                else
+                {
+                    // User is signed out
+
+
+                }
+                // [START_EXCLUDE]
+
+                // [END_EXCLUDE]
+            }
+        };*/
     }
 
     @Override
@@ -106,6 +201,7 @@ public class Login extends AppCompatActivity{
 
 
     private void signIn() {
+        mProgress.show();
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -136,7 +232,30 @@ public class Login extends AppCompatActivity{
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        if(task.isSuccessful()){
+                            String id1 = mAuth.getCurrentUser().getUid();
+                           // final FirebaseUser user=firebaseAuth.getCurrentUser();
+                            //For adding into database
 
+                            //mDatabase = FirebaseDatabase.getInstance().getReference("users");
+                            //child("users").child(id1);
+                            //mDatabase.child(id1).setValue(getComponentName());
+                            /*User newUser = new User();
+                            newUser.setEmail(fUser.getEmail());
+                            newUser*/
+                            DatabaseReference mDBRef=FirebaseDatabase.getInstance().getReference("users").child(id1);
+
+                            mDBRef.child("Name").setValue(mAuth.getCurrentUser().getDisplayName());
+                            mDBRef.child("email").setValue(fUser.getEmail());
+                            mDBRef.child("userID").setValue(id1);
+                            mDBRef.child("issueIDs").setValue(",");
+
+                            Toast.makeText(getApplicationContext(), "Employee Added Successfully", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else{
+                            Toast.makeText(getApplicationContext(), "Please try Again", Toast.LENGTH_SHORT).show();
+                        }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -151,6 +270,7 @@ public class Login extends AppCompatActivity{
     }
 
     public boolean isNetworkAvailable() {
+
         ConnectivityManager cm = (ConnectivityManager)
                 getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
